@@ -8,7 +8,9 @@ module org.ict.client {
     requires static lombok;
 
 
+
     opens org.ict.client to javafx.fxml;
+    opens org.ict.client.controllers to javafx.fxml;
     exports org.ict.client;
     exports org.ict.client.models;
     exports org.ict.client.models.dtos;

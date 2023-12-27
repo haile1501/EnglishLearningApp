@@ -21,7 +21,7 @@ public class SocketManager {
     private final boolean isRunning = true;
 
     public interface MessageCallback {
-        void onMessageReceived(String message) throws JsonProcessingException;
+        void onMessageReceived(String message) throws JsonProcessingException, ClassNotFoundException;
     }
 
     private MessageCallback messageCallback;
