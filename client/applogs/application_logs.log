@@ -1,0 +1,42 @@
+2023-12-26 11:35:06 [Thread-2] ERROR org.ict.client.SocketManager - [Ljava.lang.StackTraceElement;@43cf57b8
+2023-12-26 11:50:21 [Thread-2] ERROR org.ict.client.SocketManager - [Ljava.lang.StackTraceElement;@2ffbc8a1
+2023-12-26 12:29:54 [Thread-2] ERROR org.ict.client.SocketManager - [Ljava.lang.StackTraceElement;@6b180b06
+2023-12-26 12:40:29 [Thread-2] ERROR org.ict.client.SocketManager - [Ljava.lang.StackTraceElement;@656e91fe
+2023-12-26 12:42:52 [Thread-2] ERROR org.ict.client.SocketManager - [Ljava.lang.StackTraceElement;@656e91fe
+2023-12-26 12:43:16 [Thread-2] ERROR org.ict.client.SocketManager - [Ljava.lang.StackTraceElement;@2ffbc8a1
+2023-12-26 12:56:11 [Thread-2] ERROR org.ict.client.SocketManager - [Ljava.lang.StackTraceElement;@2ffbc8a1
+2023-12-26 13:09:41 [Thread-2] ERROR org.ict.client.SocketManager - [Ljava.lang.StackTraceElement;@2ffbc8a1
+2023-12-26 13:09:50 [main] ERROR org.ict.client.SocketManager - [Ljava.lang.StackTraceElement;@723e88f9
+2023-12-26 13:11:30 [Thread-2] ERROR org.ict.client.SocketManager - [Ljava.lang.StackTraceElement;@656e91fe
+2023-12-26 13:14:39 [Thread-2] ERROR org.ict.client.SocketManager - [Ljava.lang.StackTraceElement;@2ffbc8a1
+2023-12-26 13:17:34 [Thread-2] ERROR org.ict.client.SocketManager - [Ljava.lang.StackTraceElement;@656e91fe
+2023-12-26 13:18:23 [Thread-2] ERROR org.ict.client.SocketManager - [Ljava.lang.StackTraceElement;@656e91fe
+2023-12-26 16:55:14 [Thread-2] ERROR org.ict.client.SocketManager - [Ljava.lang.StackTraceElement;@66d35836
+2023-12-26 16:58:21 [Thread-2] ERROR org.ict.client.SocketManager - [Ljava.lang.StackTraceElement;@5dcc9cf2
+2023-12-26 17:14:32 [Thread-2] ERROR org.ict.client.SocketManager - [Ljava.lang.StackTraceElement;@66d35836
+2023-12-26 17:14:55 [Thread-2] ERROR org.ict.client.SocketManager - [Ljava.lang.StackTraceElement;@5d77cb43
+2023-12-26 17:15:19 [Thread-2] ERROR org.ict.client.SocketManager - [Ljava.lang.StackTraceElement;@1282268
+2023-12-26 17:19:32 [Thread-2] ERROR org.ict.client.SocketManager - [Ljava.lang.StackTraceElement;@1282268
+2023-12-26 17:19:54 [Thread-2] ERROR org.ict.client.SocketManager - [Ljava.lang.StackTraceElement;@2d0b09f2
+2023-12-26 17:41:26 [Thread-2] ERROR org.ict.client.SocketManager - [Ljava.lang.StackTraceElement;@66d35836
+2023-12-26 17:45:43 [Thread-2] ERROR org.ict.client.SocketManager - [Ljava.lang.StackTraceElement;@66d35836
+2023-12-26 17:46:11 [Thread-2] ERROR org.ict.client.SocketManager - [Ljava.lang.StackTraceElement;@2f1da02a
+2023-12-26 17:46:33 [Thread-2] ERROR org.ict.client.SocketManager - [Ljava.lang.StackTraceElement;@3e82fd85
+2023-12-26 17:47:52 [Thread-2] ERROR org.ict.client.SocketManager - [Ljava.lang.StackTraceElement;@7492753a
+2023-12-26 17:56:26 [Thread-2] ERROR org.ict.client.SocketManager - [Ljava.lang.StackTraceElement;@3ef22dcc
+2023-12-26 17:57:07 [Thread-2] ERROR org.ict.client.SocketManager - [Ljava.lang.StackTraceElement;@7492753a
+2023-12-26 17:59:02 [Thread-2] ERROR org.ict.client.SocketManager - com.fasterxml.jackson.databind.exc.InvalidDefinitionException: Failed to call `setAccess()` on Constructor 'org.ict.client.models.Exercise' (of class `org.ict.client.models.Exercise`) due to `java.lang.reflect.InaccessibleObjectException`, problem: Unable to make public org.ict.client.models.Exercise() accessible: module org.ict.client does not "exports org.ict.client.models" to module com.fasterxml.jackson.databind
+ at [Source: (String)"[{"id":1,"createdAt":1703565245000,"updatedAt":1703565245000,"content":"test","type":"REWRITE","lessonId":1}]"; line: 1, column: 1]
+2023-12-26 18:55:08 [Thread-2] ERROR org.ict.client.SocketManager - com.fasterxml.jackson.databind.exc.InvalidDefinitionException: Failed to call `setAccess()` on Constructor 'org.ict.client.models.Exercise' (of class `org.ict.client.models.Exercise`) due to `java.lang.reflect.InaccessibleObjectException`, problem: Unable to make public org.ict.client.models.Exercise() accessible: module org.ict.client does not "exports org.ict.client.models" to module com.fasterxml.jackson.databind
+ at [Source: (String)"[{"id":1,"createdAt":1703565245000,"updatedAt":1703565245000,"content":"test","type":"REWRITE","lessonId":1}]"; line: 1, column: 1]
+2023-12-27 14:40:48 [Thread-2] ERROR org.ict.client.SocketManager - java.net.SocketException: Connection reset
+2023-12-27 14:52:47 [Thread-2] ERROR org.ict.client.SocketManager - java.net.SocketException: Connection reset
+2023-12-27 14:53:35 [Thread-2] ERROR org.ict.client.SocketManager - java.net.SocketException: Connection reset
+2023-12-27 14:54:21 [Thread-2] ERROR org.ict.client.SocketManager - java.net.SocketException: Connection reset
+2023-12-27 16:17:57 [Thread-2] ERROR org.ict.client.SocketManager - java.net.SocketException: Connection reset
+2023-12-27 16:22:57 [Thread-2] ERROR org.ict.client.SocketManager - java.net.SocketException: Connection reset
+2023-12-27 16:25:38 [Thread-2] ERROR org.ict.client.SocketManager - java.net.SocketException: Connection reset
+2023-12-27 16:26:20 [Thread-2] ERROR org.ict.client.SocketManager - java.net.SocketException: Connection reset
+2023-12-27 16:27:29 [Thread-2] ERROR org.ict.client.SocketManager - java.net.SocketException: Connection reset
+2023-12-27 16:28:57 [Thread-2] ERROR org.ict.client.SocketManager - java.net.SocketException: Connection reset
+2023-12-27 16:32:41 [Thread-2] ERROR org.ict.client.SocketManager - java.net.SocketException: Connection reset

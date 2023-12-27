@@ -7,9 +7,9 @@ import java.util.Optional;
 public interface DAO<T> {
     Optional<T> get(long id);
 
-    List<T> getAll() throws SQLException, ClassNotFoundException;
+    abstract List getAll() throws SQLException, ClassNotFoundException;
 
-    void save(T t);
+    void save(T t) throws SQLException;
 
     void update(T t, String[] params);
 
