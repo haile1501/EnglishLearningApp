@@ -53,7 +53,7 @@ public class Signup {
 
         openLoginPage.setOnMouseClicked(mouseEvent -> {
             FXMLLoader loader = new FXMLLoader();
-            String pathToFxml = "./src/main/resources/org/ict/client/Login.fxml";
+            String pathToFxml = System.getenv("path") + "/Login.fxml";
             URL loginUrl = null;
             try {
                 loginUrl = new File(pathToFxml).toURI().toURL();
