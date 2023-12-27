@@ -58,7 +58,7 @@ public class Login {
 
         openSignupPage.setOnMouseClicked(mouseEvent -> {
             FXMLLoader loader = new FXMLLoader();
-            String pathToFxml = "./src/main/resources/org/ict/client/Signup.fxml";
+            String pathToFxml = System.getenv("path") + "/Signup.fxml";
             URL loginUrl = null;
             try {
                 loginUrl = new File(pathToFxml).toURI().toURL();
@@ -97,7 +97,7 @@ public class Login {
                     User user = JSONUtil.parse(splitMessage[1], User.class);
                     UserContext.getInstance().initializeContext(user);
                     FXMLLoader loader = new FXMLLoader();
-                    String pathToFxml = "./src/main/resources/org/ict/client/studentpages/LessonList.fxml";
+                    String pathToFxml = System.getenv("path") + "/LessonList.fxml";
                     URL url = null;
                     try {
                         url = new File(pathToFxml).toURI().toURL();

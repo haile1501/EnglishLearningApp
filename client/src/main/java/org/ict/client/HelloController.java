@@ -35,7 +35,7 @@ public class HelloController {
         welcomeText.setText("Welcome to JavaFX Application!");
         try {
             FXMLLoader loader2 = new FXMLLoader();
-            String pathToFxml2 = "./src/main/resources/org/ict/client/exercise-view.fxml";
+            String pathToFxml2 = System.getenv("path") + "/exercise-view.fxml";
             URL dockItemURL2 = new File(pathToFxml2).toURI().toURL();
             loader2.setLocation(dockItemURL2);
             root = loader2.load();
