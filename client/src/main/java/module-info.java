@@ -18,7 +18,6 @@ module org.ict.client {
     exports org.ict.client.controllers.components;
     exports org.ict.client.controllers.studentpages;
     exports org.ict.client.controllers.teacherpages;
-    opens org.ict.client.controllers to javafx.fxml;
     opens org.ict.client.controllers.studentpages to javafx.fxml;
     opens org.ict.client.controllers.teacherpages to javafx.fxml;
     opens org.ict.client.controllers.components to javafx.fxml;

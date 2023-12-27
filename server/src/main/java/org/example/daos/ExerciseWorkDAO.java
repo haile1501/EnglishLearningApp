@@ -19,12 +19,12 @@ public class ExerciseWorkDAO implements DAO<ExerciseWork> {
     private final Logger logger = LogManager.getLogger(RoleDAO.class);
 
     @Override
-    public Optional<ExerciseWork> get(long id) {
+    public Optional<ExerciseWork> get(int id) throws SQLException, ClassNotFoundException {
         return Optional.empty();
     }
 
     @Override
-    public List getAll() throws SQLException, ClassNotFoundException {
+    public List<ExerciseWork> getAll() throws SQLException, ClassNotFoundException {
         try {
             ResultSet rs = DBUtil.dbExecuteQuery("select * from exercise_work");
             List<ExerciseWork> ExList = new ArrayList<>();

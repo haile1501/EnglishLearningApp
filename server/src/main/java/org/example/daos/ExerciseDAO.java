@@ -13,13 +13,14 @@ import java.util.Optional;
 
 public class ExerciseDAO implements DAO<Exercise>{
     private final Logger logger = LogManager.getLogger(RoleDAO.class);
+
     @Override
-    public Optional get(long id) {
+    public Optional<Exercise> get(int id) throws SQLException, ClassNotFoundException {
         return Optional.empty();
     }
 
     @Override
-    public List getAll() throws SQLException, ClassNotFoundException {
+    public List<Exercise> getAll() throws SQLException, ClassNotFoundException {
         try {
             ResultSet rs = DBUtil.dbExecuteQuery("select * from exercises");
             List<Exercise> ExList = new ArrayList<>();

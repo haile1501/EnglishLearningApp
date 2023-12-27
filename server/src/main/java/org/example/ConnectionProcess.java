@@ -135,8 +135,6 @@ public class ConnectionProcess implements Runnable {
             }
         } catch (IOException e) {
             logger.error(e);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
         } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }

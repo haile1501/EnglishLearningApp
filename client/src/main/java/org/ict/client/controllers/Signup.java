@@ -98,13 +98,6 @@ public class Signup {
                 // Wait for the user to close the dialog
                 dialog.showAndWait();
             } else {
-                User user = null;
-                try {
-                    user = JSONUtil.parse(splitMessage[1], User.class);
-                } catch (JsonProcessingException e) {
-                    throw new RuntimeException(e);
-                }
-                UserContext.getInstance().initializeContext(user);
                 Dialog<String> dialog = new Dialog<>();
                 dialog.setHeight(200);
                 dialog.setWidth(500);

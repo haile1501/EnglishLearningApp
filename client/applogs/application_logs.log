@@ -40,3 +40,4 @@
 2023-12-27 16:27:29 [Thread-2] ERROR org.ict.client.SocketManager - java.net.SocketException: Connection reset
 2023-12-27 16:28:57 [Thread-2] ERROR org.ict.client.SocketManager - java.net.SocketException: Connection reset
 2023-12-27 16:32:41 [Thread-2] ERROR org.ict.client.SocketManager - java.net.SocketException: Connection reset
+2023-12-27 18:25:24 [main] ERROR org.ict.client.SocketManager - [Ljava.lang.StackTraceElement;@48c76607

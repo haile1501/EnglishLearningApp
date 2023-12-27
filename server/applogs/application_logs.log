@@ -692,3 +692,17 @@
 2023-12-27 16:29:14 [Thread-0] INFO  org.example.utils.DBUtil - Select statement: select * from exercises
 
 2023-12-27 16:29:14 [Thread-0] INFO  org.example.ConnectionProcess - [{"id":1,"createdAt":1703565245000,"updatedAt":1703565245000,"content":"test","type":"REWRITE","lessonId":1},{"id":2,"createdAt":1703565245000,"updatedAt":1703565245000,"content":"test222222222222222222222222","type":"PARAGRAPH","lessonId":1}]
+2023-12-27 18:29:51 [main] INFO  org.example.Main - New client connected 127.0.0.1
+2023-12-27 18:29:56 [Thread-0] INFO  org.example.ConnectionProcess - LOGIN {"loginId":"hai","password":"abc"}
+2023-12-27 18:29:57 [Thread-0] INFO  org.example.ConnectionProcess - GET_LESSON_LIST {"topic":"","level":"Beginner"}
+2023-12-27 18:30:03 [Thread-0] ERROR org.example.ConnectionProcess - java.net.SocketException: Connection reset
+2023-12-27 18:30:04 [main] INFO  org.example.Main - New client connected 127.0.0.1
+2023-12-27 18:30:10 [Thread-1] INFO  org.example.ConnectionProcess - SIGNUP {"loginId":"haile","password":"123","role":"student"}
+2023-12-27 18:30:58 [Thread-1] ERROR org.example.ConnectionProcess - java.net.SocketException: Connection reset
+2023-12-27 18:31:02 [main] INFO  org.example.Main - New client connected 127.0.0.1
+2023-12-27 18:31:09 [Thread-2] INFO  org.example.ConnectionProcess - LOGIN {"loginId":"haile","password":"123"}
+2023-12-27 18:31:09 [Thread-2] INFO  org.example.ConnectionProcess - GET_LESSON_LIST {"topic":"","level":"Beginner"}
+2023-12-27 18:31:13 [Thread-2] ERROR org.example.ConnectionProcess - java.net.SocketException: Connection reset
+2023-12-27 18:31:15 [main] INFO  org.example.Main - New client connected 127.0.0.1
+2023-12-27 18:31:22 [Thread-3] INFO  org.example.ConnectionProcess - SIGNUP {"loginId":"hai1","password":"1","role":"student"}
+2023-12-27 18:31:26 [Thread-3] ERROR org.example.ConnectionProcess - java.net.SocketException: Connection reset
