@@ -48,6 +48,7 @@ public class HelloController {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        socketManager.sendMessage("LOGIN {\"loginId\":\"hai\",\"password\":\"abc\"}", this::handleDataResponse);
     }
 
     @FXML

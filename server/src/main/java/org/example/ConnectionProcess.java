@@ -2,12 +2,20 @@ package org.example;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.example.daos.DAO;
 import org.example.daos.ExerciseDAO;
 import org.example.daos.ExerciseWorkDAO;
 import org.example.models.Exercise;
 import org.example.models.ExerciseWork;
 import org.example.utils.JSONUtil;
+import org.example.daos.LessonDAO;
+import org.example.daos.UserDAO;
+import org.example.models.Lesson;
+import org.example.models.User;
+import org.example.models.dtos.GetLessonListDto;
+import org.example.models.dtos.LoginDto;
+import org.example.models.dtos.SignupDto;
+import org.example.utils.JSONUtil;
+import org.example.utils.ResponseCode;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -20,6 +28,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.Optional;
 
 public class ConnectionProcess implements Runnable {
     private static final Logger logger = LogManager.getLogger(ConnectionProcess.class);
@@ -46,19 +57,60 @@ public class ConnectionProcess implements Runnable {
             byte[] buffer = new byte[2048];
             while (input.read(buffer) != -1) {
                 String message = new String(buffer, StandardCharsets.UTF_8).trim();
+                String payloadString;
                 String[] splitMessage = message.split(" ");
                 String command = splitMessage[0];
                 switch (command) {
                     case "LOGIN":
-                        String payloadString = splitMessage[1];
-                        output.write("ok".getBytes());
-                        logger.info(Arrays.toString(splitMessage));
+                        //log
+                        logger.info(message);
+
+                        payloadString = splitMessage[1];
+                        LoginDto loginDto = JSONUtil.parse(payloadString, LoginDto.class);
+
+                        UserDAO userDAO = UserDAO.getInstance();
+                        Optional<User> user = userDAO.getUserByLoginId(loginDto.getLoginId());
+
+                        if (user.isEmpty() || !user.get().getPassword().equals(loginDto.getPassword())) {
+                            output.write(String.valueOf(ResponseCode.LOGIN_ERROR).getBytes());
+                            break;
+                        }
+                        output.write((STR."\{String.valueOf(ResponseCode.OK)} \{JSONUtil.stringify(user.get())}").getBytes());
                         break;
-                    case "REGISTER":
+                    case "SIGNUP":
+                        //log
+                        logger.info(message);
+
+                        payloadString = splitMessage[1];
+                        SignupDto signupDto = JSONUtil.parse(payloadString, SignupDto.class);
+
+                        UserDAO userDAO2 = UserDAO.getInstance();
+                        Optional<User> existingUser = userDAO2.getUserByLoginId(signupDto.getLoginId());
+
+                        if (existingUser.isPresent()) {
+                            output.write(String.valueOf(ResponseCode.SIGNUP_ERROR).getBytes());
+                            break;
+                        }
+
+                        User newUser = new User();
+                        newUser.setRole(signupDto.getRole());
+                        newUser.setPassword(signupDto.getPassword());
+                        newUser.setLoginId(signupDto.getLoginId());
+                        userDAO2.save(newUser);
+                        output.write(String.valueOf(ResponseCode.OK).getBytes());
                         break;
                     case "SET_LEVEL":
                         break;
                     case "GET_LESSON_LIST":
+                        //log
+                        logger.info(message);
+
+                        payloadString = splitMessage[1];
+                        GetLessonListDto getLessonListDto = JSONUtil.parse(payloadString, GetLessonListDto.class);
+                        LessonDAO lessonDAO = LessonDAO.getInstance();
+                        List<Lesson> lessonList = lessonDAO.getLessonListByTopicAndLevel(getLessonListDto.getTopic(), getLessonListDto.getLevel());
+
+                        output.write(JSONUtil.stringify(lessonList).getBytes());
                         break;
                     case "GET_LESSON_DETAIL":
                         break;
@@ -85,7 +137,7 @@ public class ConnectionProcess implements Runnable {
             logger.error(e);
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        } catch (ClassNotFoundException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
     }

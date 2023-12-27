@@ -14,7 +14,6 @@ public class SocketManager {
 
     private static final Logger logger = LogManager.getLogger(SocketManager.class);
 
-    private static SocketManager instance;
     private Socket socket;
     private InputStream input;
     private OutputStream output;
@@ -31,16 +30,13 @@ public class SocketManager {
 
     }
 
-    public static SocketManager getInstance() {
-        if (instance == null) {
-            synchronized (SocketManager.class) {
-                if (instance == null) {
-                    instance = new SocketManager();
-                }
-            }
-        }
+    private static final class InstanceHolder {
+        private static final SocketManager instance = new SocketManager();
+    }
 
-        return instance;
+    public static SocketManager getInstance() {
+
+        return InstanceHolder.instance;
     }
 
     public void initializeConnection(String serverAddress, int serverPort) {

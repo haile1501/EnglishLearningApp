@@ -17,7 +17,7 @@ public class Main {
             //noinspection InfiniteLoopStatement
             while (true){
                 Socket clientSocket = serverSocket.accept();
-                logger.info("New client connected " + clientSocket.getInetAddress().getHostAddress());
+                logger.info(STR."New client connected \{clientSocket.getInetAddress().getHostAddress()}");
                 ConnectionProcess connectionProcess = new ConnectionProcess(clientSocket, String.valueOf(System.currentTimeMillis()));
                 connectionList.add(connectionProcess);
                 new Thread(connectionProcess).start();
