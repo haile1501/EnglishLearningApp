@@ -18,7 +18,6 @@ public class DBUtil {
             logger.error(e.getStackTrace());
             throw e;
         }
-        logger.info("JDBC Driver Registered!");
         try {
             String username = System.getenv("DBUsername");
             String password = System.getenv("DBPassword");
@@ -44,7 +43,6 @@ public class DBUtil {
         CachedRowSet crs = RowSetProvider.newFactory().createCachedRowSet();
         try {
             dbConnect();
-            logger.info("Select statement: " + queryStmt + "\n");
             stmt = conn.createStatement();
             resultSet = stmt.executeQuery(queryStmt);
             crs.populate(resultSet);

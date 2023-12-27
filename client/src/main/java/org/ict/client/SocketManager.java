@@ -1,5 +1,6 @@
 package org.ict.client;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -13,7 +14,6 @@ public class SocketManager {
 
     private static final Logger logger = LogManager.getLogger(SocketManager.class);
 
-    private static SocketManager instance;
     private Socket socket;
     private InputStream input;
     private OutputStream output;
@@ -21,7 +21,7 @@ public class SocketManager {
     private final boolean isRunning = true;
 
     public interface MessageCallback {
-        void onMessageReceived(String message);
+        void onMessageReceived(String message) throws JsonProcessingException;
     }
 
     private MessageCallback messageCallback;
@@ -30,16 +30,13 @@ public class SocketManager {
 
     }
 
-    public static SocketManager getInstance() {
-        if (instance == null) {
-            synchronized (SocketManager.class) {
-                if (instance == null) {
-                    instance = new SocketManager();
-                }
-            }
-        }
+    private static final class InstanceHolder {
+        private static final SocketManager instance = new SocketManager();
+    }
 
-        return instance;
+    public static SocketManager getInstance() {
+
+        return InstanceHolder.instance;
     }
 
     public void initializeConnection(String serverAddress, int serverPort) {
@@ -63,7 +60,7 @@ public class SocketManager {
                     messageCallback.onMessageReceived(message);
                 }
             } catch (Exception e) {
-                logger.error(e.getStackTrace());
+                logger.error(e);
             }
         });
 

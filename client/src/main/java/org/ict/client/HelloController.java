@@ -14,7 +14,7 @@ public class HelloController {
     @FXML
     protected void onHelloButtonClick() throws IOException {
         welcomeText.setText("Welcome to JavaFX Application!");
-        socketManager.sendMessage("LOGIN {\"username\":\"abc\",\"password\":\"abc\"}", this::handleDataResponse);
+        socketManager.sendMessage("LOGIN {\"loginId\":\"hai\",\"password\":\"abc\"}", this::handleDataResponse);
     }
 
     @FXML
