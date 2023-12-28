@@ -2,19 +2,14 @@ package org.example;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.example.daos.ExerciseDAO;
-import org.example.daos.ExerciseWorkDAO;
-import org.example.models.Exercise;
-import org.example.models.ExerciseWork;
+import org.example.daos.*;
+import org.example.models.*;
+import org.example.models.dtos.message.GetConversationReqDto;
+import org.example.models.dtos.message.SendMessageDto;
 import org.example.utils.JSONUtil;
-import org.example.daos.LessonDAO;
-import org.example.daos.UserDAO;
-import org.example.models.Lesson;
-import org.example.models.User;
 import org.example.models.dtos.GetLessonListDto;
 import org.example.models.dtos.LoginDto;
 import org.example.models.dtos.SignupDto;
-import org.example.utils.JSONUtil;
 import org.example.utils.ResponseCode;
 
 import java.io.IOException;
@@ -22,12 +17,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
-import java.sql.Array;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
@@ -53,6 +42,8 @@ public class ConnectionProcess implements Runnable {
 
     @Override
     public void run() {
+        ConversationDAO conversationDAO = ConversationDAO.getInstance();
+        MessageDAO messageDAO = MessageDAO.getInstance();
         try {
             byte[] buffer = new byte[2048];
             while (input.read(buffer) != -1) {
@@ -131,6 +122,39 @@ public class ConnectionProcess implements Runnable {
                         break;
                     case "FEEDBACK_EXERCISE":
                         break;
+
+                    case "GET_CONVERSATIONS":
+
+                        payloadString = splitMessage[1];
+                        GetConversationReqDto getConversationReqDto = JSONUtil.parse(payloadString, GetConversationReqDto.class);
+                        break;
+
+                    case "SEND_MESSAGE":
+
+                        payloadString = splitMessage[1];
+                        SendMessageDto sendMessageDto = JSONUtil.parse(payloadString, SendMessageDto.class);
+
+                        //add service check exists conversations between sender and receiver
+                        Optional<Conversation> conversation = conversationDAO.getConversationByUserId(sendMessageDto.getSenderId(), sendMessageDto.getReceiverId());
+
+                        Message newMessage = new Message();
+                        newMessage.setSenderId(sendMessageDto.getSenderId());
+                        newMessage.setReceiverId(sendMessageDto.getReceiverId());
+                        newMessage.setContent(sendMessageDto.getContent());
+
+                        if (conversation.isEmpty()) { // if conversation is empty
+                            Long conversationId = conversationDAO.save(sendMessageDto.getSenderId(), sendMessageDto.getReceiverId());
+                            newMessage.setConversationId(conversationId);
+                        }
+                        else {
+                            Long conversationId = conversation.get().getId().longValue();
+                            newMessage.setConversationId(conversationId);
+                        }
+
+                        messageDAO.save(newMessage);
+                        output.write(String.valueOf(ResponseCode.OK).getBytes());
+                        break;
+
                 }
             }
         } catch (IOException e) {
