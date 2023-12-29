@@ -3,10 +3,12 @@ package org.example.daos;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.example.models.Conversation;
+import org.example.models.dtos.conversation.ConversationSummary;
 import org.example.utils.DBUtil;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -65,6 +67,24 @@ public class ConversationDAO implements DAO<Conversation> {
         String query = STR."SELECT c.id FROM conversations AS c WHERE (c.first_user_id = \{firstUserId} AND c.second_user_id = \{secondUserId}) OR (c.second_user_id = \{firstUserId} AND c.first_user_id = \{secondUserId})";
         ResultSet rs = DBUtil.dbExecuteQuery(query);
         return rs.getLong("id");
+    }
+
+    public List<ConversationSummary> getAllConversationByAccountId(Long accountId) throws SQLException, ClassNotFoundException {
+        String query = STR."SELECT DISTINCT CASE WHEN acc1.id = \{accountId} THEN acc2.id ELSE acc1.id END AS participant_id, CASE WHEN acc1.id = \{accountId} THEN acc2.loginId ELSE acc1.loginId END AS participant_name FROM conversations AS conv JOIN accounts AS acc1 ON conv.first_user_id = acc1.id JOIN accounts AS acc2 ON conv.second_user_id = acc2.id WHERE acc1.id = \{accountId} OR acc2.id = \{accountId};";
+        ResultSet rs = DBUtil.dbExecuteQuery(query);
+        return getConversations(rs);
+    }
+
+    private List<ConversationSummary> getConversations(ResultSet rs) throws SQLException{
+        List<ConversationSummary> conversationSummaryList = new ArrayList<>();
+
+        while (rs.next()) {
+            ConversationSummary conversationSummary = new ConversationSummary();
+            conversationSummary.setParticipantId(rs.getLong("participant_id"));
+            conversationSummary.setParticipantName(rs.getString("participant_name"));
+            conversationSummaryList.add(conversationSummary);
+        }
+        return conversationSummaryList;
     }
 
     @Override

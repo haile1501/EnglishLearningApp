@@ -4,6 +4,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.example.daos.*;
 import org.example.models.*;
+import org.example.models.dtos.conversation.ConversationSummary;
 import org.example.models.dtos.message.GetConversationReqDto;
 import org.example.models.dtos.message.SendMessageDto;
 import org.example.utils.JSONUtil;
@@ -127,6 +128,9 @@ public class ConnectionProcess implements Runnable {
 
                         payloadString = splitMessage[1];
                         GetConversationReqDto getConversationReqDto = JSONUtil.parse(payloadString, GetConversationReqDto.class);
+
+                        List<ConversationSummary> conversationSummaryList = conversationDAO.getAllConversationByAccountId(getConversationReqDto.getAccountId());
+                        output.write(JSONUtil.stringify(conversationSummaryList).getBytes());
                         break;
 
                     case "SEND_MESSAGE":
