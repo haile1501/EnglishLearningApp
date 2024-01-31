@@ -166,7 +166,9 @@ public class LessonDetailSpeak {
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-            mediaPlayer.stop();
+            if (mediaPlayer != null) {
+                mediaPlayer.stop();
+            }
             scene = new Scene(root);
             stage = (Stage)((Node)mouseEvent.getSource()).getScene().getWindow();
             stage.setScene(scene);
