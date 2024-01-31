@@ -312,8 +312,13 @@ public class ConnectionProcess implements Runnable {
                         sendMessage(JSONUtil.stringify(messageList));
                         break;
                     case "SEND_MESSAGE":
-                        userId = Integer.parseInt(splitMessage[1]);
-
+                        User toUSer = JSONUtil.parse(splitMessage[1], User.class);
+                        String content = splitMessage[2];
+                        MessageDAO.getInstance().insertMessage(this.user.getId(), toUSer.getId(), content);
+                        if (Main.onlineUsers.containsKey(toUSer.getLoginId())) {
+                            Main.onlineUsers.get(toUSer.getLoginId()).sendMessage(STR."RECEIVE_MESSAGE-\{JSONUtil.stringify(this.user)}-\{content}");
+                        }
+                        break;
                 }
             }
         } catch (IOException e) {

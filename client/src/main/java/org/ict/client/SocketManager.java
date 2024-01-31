@@ -2,6 +2,7 @@ package org.ict.client;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.Getter;
+import lombok.Setter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -12,6 +13,7 @@ import java.nio.charset.StandardCharsets;
 import static java.lang.StringTemplate.STR;
 
 @Getter
+@Setter
 public class SocketManager {
 
     private static final Logger logger = LogManager.getLogger(SocketManager.class);
@@ -26,7 +28,12 @@ public class SocketManager {
         void onMessageReceived(String message) throws IOException, ClassNotFoundException;
     }
 
+    public interface ChatCallback {
+        void onMessageReceived(String message) throws IOException, ClassNotFoundException;
+    }
+
     private MessageCallback messageCallback;
+    private ChatCallback chatCallback;
 
     private SocketManager() {
 
@@ -76,6 +83,10 @@ public class SocketManager {
                             }
                         }
                         fos.close();
+                    }
+                    if (message.contains("RECEIVE_MESSAGE")) {
+                        chatCallback.onMessageReceived(message);
+                        continue;
                     }
                     messageCallback.onMessageReceived(message);
                 }

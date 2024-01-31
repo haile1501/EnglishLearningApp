@@ -12,6 +12,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.ict.client.SocketManager;
+import org.ict.client.UserContext;
 import org.ict.client.controllers.components.LevelItem;
 import org.ict.client.controllers.components.UserItem;
 import org.ict.client.models.User;
@@ -22,6 +23,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
+import java.util.Objects;
 
 public class Chat {
 
@@ -72,6 +74,9 @@ public class Chat {
             try {
                 List<User> users = JSONUtil.parseList(message, User.class);
                 for (User user: users) {
+                    if (Objects.equals(user.getId(), UserContext.getInstance().getUser().getId())) {
+                        continue;
+                    }
                     boolean found = false;
                     for (String onlineUser: onlineUsers) {
                         if (onlineUser.equals(user.getLoginId())) {

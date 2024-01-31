@@ -24,7 +24,7 @@ public class MessageDAO {
     }
 
     public List<Message> getMessageList(int userId1, int userId2) throws SQLException, ClassNotFoundException {
-        String stm = "select * from messages where order by created_at asc";
+        String stm = STR."select * from messages where (sender_id = \{userId1} and receiver_id = \{userId2}) or (sender_id = \{userId2} and receiver_id = \{userId1}) order by created_at asc";
         ResultSet rs = DBUtil.dbExecuteQuery(stm);
         List<Message> messageList = new ArrayList<>();
 
@@ -40,5 +40,9 @@ public class MessageDAO {
         }
 
         return messageList;
+    }
+
+    public void insertMessage(int senderId, int receiverId, String content) throws SQLException, ClassNotFoundException {
+        DBUtil.dbExecuteUpdate(STR."insert into messages(sender_id, receiver_id, content) values (\{senderId}, \{receiverId}, '\{content}')");
     }
 }

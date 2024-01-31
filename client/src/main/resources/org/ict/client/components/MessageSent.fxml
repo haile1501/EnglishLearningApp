@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="52.0" prefWidth="430.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.ict.client.controllers.components.MessageSent">
+   <children>
+      <Pane fx:id="messageContainer" layoutX="369.0" layoutY="14.0" minWidth="50.0" prefHeight="24.0" prefWidth="46.0" style="-fx-background-color: #D4CFCE; -fx-border-radius: 10%;">
+         <children>
+            <Text fx:id="content" layoutX="8.0" layoutY="17.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hello">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Text>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

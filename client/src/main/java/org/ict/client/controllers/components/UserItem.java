@@ -61,7 +61,11 @@ public class UserItem {
                 throw new RuntimeException(e);
             }
             Conversation conversation = loader.getController();
-            conversation.setData(user, isOnline);
+            try {
+                conversation.setData(user, isOnline);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
             scene = new Scene(root);
             stage = (Stage)((Node)mouseEvent.getSource()).getScene().getWindow();
             stage.setScene(scene);

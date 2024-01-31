@@ -139,3 +139,7 @@
 2024-01-31 17:48:36 [Thread-2] ERROR org.ict.client.SocketManager - java.lang.IllegalArgumentException: Invalid URL: Invalid URL or resource not found
 2024-01-31 17:49:42 [Thread-2] ERROR org.ict.client.SocketManager - java.lang.IllegalArgumentException: Invalid URL: Invalid URL or resource not found
 2024-01-31 21:32:06 [Thread-2] ERROR org.ict.client.SocketManager - java.net.SocketException: Connection reset
+2024-02-01 00:10:03 [Thread-2] ERROR org.ict.client.SocketManager - java.net.SocketException: Connection reset
+2024-02-01 00:14:43 [Thread-2] ERROR org.ict.client.SocketManager - java.net.SocketException: Connection reset
+2024-02-01 01:03:18 [Thread-2] ERROR org.ict.client.SocketManager - java.net.SocketException: Connection reset
+2024-02-01 01:23:15 [Thread-2] ERROR org.ict.client.SocketManager - java.net.SocketException: Connection reset

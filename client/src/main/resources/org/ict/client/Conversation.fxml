@@ -18,7 +18,7 @@
       </Text>
       <ScrollPane layoutX="76.0" layoutY="54.0" prefHeight="272.0" prefWidth="446.0">
          <content>
-            <VBox fx:id="messageList" prefHeight="270.0" prefWidth="434.0" />
+            <VBox fx:id="messageList" prefHeight="270.0" prefWidth="430.0" />
          </content>
       </ScrollPane>
       <Button fx:id="back" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" text="Back" />
