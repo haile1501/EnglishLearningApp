@@ -8,4 +8,6 @@ import lombok.Setter;
 public class LessonListItem extends BaseModel {
     private String topic;
     private String level;
+    private String audioUrl;
+    private String videoUrl;
 }

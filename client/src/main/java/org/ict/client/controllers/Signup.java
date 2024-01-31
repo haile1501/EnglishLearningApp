@@ -76,7 +76,7 @@ public class Signup {
             SignupDto signupDto = new SignupDto(loginId.getText(), password.getText(), roleSelectList.getValue().toLowerCase());
             SocketManager socketManager = SocketManager.getInstance();
             try {
-                socketManager.sendMessage("SIGNUP " + JSONUtil.stringify(signupDto), this::handleSignupResponse);
+                socketManager.sendMessage(STR."SIGNUP-\{JSONUtil.stringify(signupDto)}", this::handleSignupResponse);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -85,7 +85,7 @@ public class Signup {
 
     private void handleSignupResponse(String message) {
         Platform.runLater(() -> {
-            String[] splitMessage = message.split(" ");
+            String[] splitMessage = message.split("-");
             int responseCode = Integer.parseInt(splitMessage[0]);
 
             if (responseCode == ResponseCode.SIGNUP_ERROR) {

@@ -5,11 +5,14 @@ import org.apache.logging.log4j.Logger;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class Main {
     private static final Logger logger = LogManager.getLogger(Main.class);
     private static final List<ConnectionProcess> connectionList = new ArrayList<>();
+
+    public static final HashMap<String, ConnectionProcess> onlineUsers = new HashMap<>();
 
     public static void main(String[] args) {
         int port = Integer.parseInt(System.getenv("port"));

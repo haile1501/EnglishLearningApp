@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class ExerciseDAO implements DAO<Exercise>{
-    private final Logger logger = LogManager.getLogger(RoleDAO.class);
+    private final Logger logger = LogManager.getLogger(ExerciseDAO.class);
 
     @Override
     public Optional<Exercise> get(int id) throws SQLException, ClassNotFoundException {
@@ -31,19 +31,7 @@ public class ExerciseDAO implements DAO<Exercise>{
                 ex.setContent(rs.getString("content"));
                 ex.setCreatedAt(rs.getTimestamp("created_at"));
                 ex.setUpdatedAt(rs.getTimestamp("updated_at"));
-                ex.setLessonId(rs.getInt("lesson_id"));
-                String type = rs.getString("type");
-                switch (type){
-                    case "REWRITE":
-                        ex.setType(Exercise.EX_TYPE.REWRITE);
-                        break;
-                    case "PARAGRAPH":
-                        ex.setType(Exercise.EX_TYPE.PARAGRAPH);
-                        break;
-                    case "SPEAKING":
-                        ex.setType(Exercise.EX_TYPE.SPEAKING);
-                        break;
-                }
+                ex.setType(rs.getString("type"));
                 ExList.add(ex);
             }
             return ExList;
@@ -66,5 +54,56 @@ public class ExerciseDAO implements DAO<Exercise>{
     @Override
     public void delete(Exercise ex) {
 
+    }
+
+    private static final class InstanceHolder {
+        private static final ExerciseDAO instance = new ExerciseDAO();
+    }
+
+    public static ExerciseDAO getInstance() {
+
+        return ExerciseDAO.InstanceHolder.instance;
+    }
+
+    public List<Exercise> getRewriteExercisesByLessonId(Integer lessonId) throws SQLException, ClassNotFoundException {
+        try {
+            String stm = "select * from exercises e where e.lesson_id = 1 and e.type = 'rewrite'";
+            ResultSet rs = DBUtil.dbExecuteQuery(stm);
+            List<Exercise> ExList = new ArrayList<>();
+
+            while (rs.next()) {
+                Exercise ex = new Exercise();
+                ex.setId(rs.getInt("id"));
+                ex.setContent(rs.getString("content"));
+                ex.setCreatedAt(rs.getTimestamp("created_at"));
+                ex.setUpdatedAt(rs.getTimestamp("updated_at"));
+                ex.setType(rs.getString("type"));
+                ExList.add(ex);
+            }
+            return ExList;
+        } catch (Exception e) {
+            logger.error(e);
+            throw e;
+        }
+    }
+
+    public Exercise getOneExercise(Integer lessonId, String type) throws SQLException, ClassNotFoundException {
+        try {
+            ResultSet rs = DBUtil.dbExecuteQuery(STR."select * from exercises e where e.lesson_id = 1 and e.type ='\{type}'");
+            List<Exercise> ExList = new ArrayList<>();
+            while (rs.next()) {
+                Exercise ex = new Exercise();
+                ex.setId(rs.getInt("id"));
+                ex.setContent(rs.getString("content"));
+                ex.setCreatedAt(rs.getTimestamp("created_at"));
+                ex.setUpdatedAt(rs.getTimestamp("updated_at"));
+                ex.setType(rs.getString("type"));
+                ExList.add(ex);
+            }
+            return ExList.getFirst();
+        } catch (Exception e) {
+            logger.error(e);
+            throw e;
+        }
     }
 }

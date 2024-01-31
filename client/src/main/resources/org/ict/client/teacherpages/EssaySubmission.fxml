@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="680.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.ict.client.controllers.teacherpages.EssaySubmission">
+   <children>
+      <Text fx:id="title" layoutX="66.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hai's submission">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Text>
+      <Button fx:id="back" layoutX="14.0" layoutY="18.0" mnemonicParsing="false" text="Back" />
+      <Button fx:id="submit" layoutX="667.0" layoutY="629.0" mnemonicParsing="false" text="Submit" />
+      <Text fx:id="topic" layoutX="66.0" layoutY="65.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hai">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Text>
+      <TextArea fx:id="answer" layoutX="58.0" layoutY="86.0" prefHeight="434.0" prefWidth="634.0" />
+      <Text layoutX="91.0" layoutY="559.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mark" />
+      <TextField fx:id="mark" layoutX="134.0" layoutY="542.0" />
+      <Text layoutX="91.0" layoutY="592.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Feedback" />
+      <TextArea fx:id="comment" layoutX="156.0" layoutY="579.0" prefHeight="86.0" prefWidth="364.0" />
+   </children>
+</AnchorPane>

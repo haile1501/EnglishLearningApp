@@ -1,14 +1,15 @@
 package org.example.models;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Exercise extends BaseModel{
-    public enum EX_TYPE{REWRITE, PARAGRAPH, SPEAKING};
-//    Integer exerciseId;
-    String content;
-    EX_TYPE type;
-    Integer lessonId;
+    private String content;
+    private String type;
 }

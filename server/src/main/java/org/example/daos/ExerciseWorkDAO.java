@@ -1,22 +1,21 @@
 package org.example.daos;
 
 import org.apache.logging.log4j.LogManager;
-import org.example.models.Exercise;
 import org.example.models.ExerciseWork;
+import org.example.models.Feedback;
+import org.example.models.dtos.ExerciseDto;
+import org.example.models.dtos.Submission;
 import org.example.utils.DBUtil;
 import org.apache.logging.log4j.Logger;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
 public class ExerciseWorkDAO implements DAO<ExerciseWork> {
-    private final Logger logger = LogManager.getLogger(RoleDAO.class);
+    private final Logger logger = LogManager.getLogger(ExerciseWorkDAO.class);
 
     @Override
     public Optional<ExerciseWork> get(int id) throws SQLException, ClassNotFoundException {
@@ -37,9 +36,6 @@ public class ExerciseWorkDAO implements DAO<ExerciseWork> {
                 ex.setUpdatedAt(rs.getTimestamp("updated_at"));
                 ex.setExerciseId(rs.getInt("exercise_id"));
                 ex.setStudentId(rs.getInt("student_id"));
-                ex.setTeacherId(rs.getInt("teacher_id"));
-                ex.setScore(rs.getDouble("score"));
-                ex.setFeedback(rs.getString("feedback"));
                 ExList.add(ex);
             }
             return ExList;
@@ -49,16 +45,23 @@ public class ExerciseWorkDAO implements DAO<ExerciseWork> {
         }
     }
 
+    private static final class InstanceHolder {
+        private static final ExerciseWorkDAO instance = new ExerciseWorkDAO();
+    }
+
+    public static ExerciseWorkDAO getInstance() {
+
+        return ExerciseWorkDAO.InstanceHolder.instance;
+    }
+
     @Override
-    public void save(ExerciseWork exerciseWork) throws SQLException {
+    public void save(ExerciseWork exerciseWork) throws SQLException, ClassNotFoundException {
+
+    }
+
+    public void save(ExerciseDto exerciseDto, int studentId) throws SQLException {
         try {
-//            Date createdDate = new Date();
-            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-            LocalDateTime now = LocalDateTime.now();
-            String createdDate = dtf.format(now);
-            System.out.println(dtf.format(now));
-//            System.out.println("INSERT INTO exercise_work (`id`, `created_at`, `updated_at`, `work`, `feedback`, `score`, `exercise_id`, `student_id`, `teacher_id`) VALUES (" + exerciseWork.getId() + ", '" + createdDate + "', '"+createdDate+"', '" + exerciseWork.getWork() + "', NULL, NULL, '" + exerciseWork.getExerciseId() + "', " + exerciseWork.getStudentId() + ", " + exerciseWork.getTeacherId() + ");");
-            DBUtil.dbExecuteUpdate("INSERT INTO exercise_work (`created_at`, `updated_at`, `work`, `feedback`, `score`, `exercise_id`, `student_id`, `teacher_id`) VALUES ('" + createdDate + "', '"+createdDate+"', '" + exerciseWork.getWork() + "', NULL, NULL, '" + exerciseWork.getExerciseId() + "', " + exerciseWork.getStudentId() + ", " + exerciseWork.getTeacherId() + ");");
+            DBUtil.dbExecuteUpdate(STR."INSERT INTO exercise_work (`work`, `exercise_id`, `student_id`) VALUES ('\{exerciseDto.getStudentWork()}', '\{exerciseDto.getId()}', '\{studentId}');");
         } catch (SQLException e) {
             logger.error(e);
             throw e;
@@ -75,5 +78,35 @@ public class ExerciseWorkDAO implements DAO<ExerciseWork> {
     @Override
     public void delete(ExerciseWork exerciseWork) {
 
+    }
+
+    public ExerciseWork getWork(int studentId, int exerciseId) throws SQLException, ClassNotFoundException {
+        ResultSet rs = DBUtil.dbExecuteQuery(STR."select * from exercise_work where student_id = \{studentId} and exercise_id = \{exerciseId}");
+        List<ExerciseWork> exerciseWorks = new ArrayList<>();
+        while (rs.next()) {
+            ExerciseWork exerciseWork = new ExerciseWork();
+            exerciseWork.setId(rs.getInt("id"));
+            exerciseWork.setCreatedAt(rs.getTimestamp("created_at"));
+            exerciseWork.setUpdatedAt(rs.getTimestamp("updated_at"));
+            exerciseWork.setWork(rs.getString("work"));
+            exerciseWorks.add(exerciseWork);
+        }
+        return !exerciseWorks.isEmpty() ? exerciseWorks.getFirst() : null;
+    }
+
+    public List<Submission> getSubmissionList(String exType) throws SQLException, ClassNotFoundException {
+        ResultSet rs = DBUtil.dbExecuteQuery(STR."select name, loginId, f.type, lesson_id, student_id from feedback f, accounts a, lessons l, topics t where f.lesson_id = l.id and f.student_id = a.id and l.topic_id = t.id and f.type = '\{exType}'");
+        List<Submission> submissionList = new ArrayList<>();
+        while (rs.next()) {
+            Submission submission = new Submission();
+            submission.setLesson(rs.getString("name"));
+            submission.setStudent(rs.getString("loginId"));
+            submission.setType(rs.getString("type"));
+            submission.setStudentId(rs.getInt("student_id"));
+            submission.setLessonId(rs.getInt("lesson_id"));
+            submissionList.add(submission);
+        }
+
+        return submissionList;
     }
 }

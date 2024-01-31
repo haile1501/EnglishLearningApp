@@ -80,20 +80,20 @@ public class ExerciseView {
     }
 
     private void handleDataResponse(String data) throws JsonProcessingException {
-        Platform.runLater(() -> {
-            try {
-                _exList = (List<Exercise>) JSONUtil.parseList(data, Exercise.class);
-                ObservableList<String> names = FXCollections.observableArrayList();
-                curEx = _exList.get(0).getId();
-                for (Exercise ex : _exList) {
-                    names.add(ex.getId() + ". Lesson ID: " + ex.getLessonId() + ": " + ex.getType().toString());
-                }
-                exList.setItems(names);
-                exDetail.setText(_exList.get(0).getContent());
-            } catch (JsonProcessingException e) {
-                throw new RuntimeException(e);
-            }
-        });
+//        Platform.runLater(() -> {
+//            try {
+//                _exList = (List<Exercise>) JSONUtil.parseList(data, Exercise.class);
+//                ObservableList<String> names = FXCollections.observableArrayList();
+//                curEx = _exList.get(0).getId();
+//                for (Exercise ex : _exList) {
+//                    names.add(ex.getId() + ". Lesson ID: " + ex.getLessonId() + ": " + ex.getType().toString());
+//                }
+//                exList.setItems(names);
+//                exDetail.setText(_exList.get(0).getContent());
+//            } catch (JsonProcessingException e) {
+//                throw new RuntimeException(e);
+//            }
+//        });
     }
 
     private void handleSubmitDataResponse(String data) throws JsonProcessingException {

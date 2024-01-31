@@ -76,6 +76,11 @@ public class UserDAO implements DAO<User> {
         }
     }
 
+    public List<User> getUsers() throws SQLException, ClassNotFoundException {
+        ResultSet rs = DBUtil.dbExecuteQuery("select * from accounts a inner join roles r on a.role_id = r.id");
+        return getUserList(rs);
+    }
+
     private List<User> getUserList(ResultSet rs) throws SQLException {
         List<User> userList = new ArrayList<>();
 

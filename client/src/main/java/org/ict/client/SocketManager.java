@@ -1,15 +1,17 @@
 package org.ict.client;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import lombok.Getter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
 
+import static java.lang.StringTemplate.STR;
+
+@Getter
 public class SocketManager {
 
     private static final Logger logger = LogManager.getLogger(SocketManager.class);
@@ -21,7 +23,7 @@ public class SocketManager {
     private final boolean isRunning = true;
 
     public interface MessageCallback {
-        void onMessageReceived(String message) throws JsonProcessingException, ClassNotFoundException;
+        void onMessageReceived(String message) throws IOException, ClassNotFoundException;
     }
 
     private MessageCallback messageCallback;
@@ -54,9 +56,27 @@ public class SocketManager {
         Thread messageReceiverThread = new Thread(() -> {
             try {
                 while (isRunning) {
-                    byte[] buffer = new byte[1024];
+                    byte[] buffer = new byte[4096];
                     input.read(buffer);
                     String message = new String(buffer, StandardCharsets.UTF_8).trim();
+                    if (message.contains("START_SEND_FILE")) {
+                        String[] parts = message.split("-");
+                        String type = parts[1];
+                        String fileName = parts[2];
+                        int fileSize = Integer.parseInt(parts[3]);
+                        FileOutputStream fos = new FileOutputStream(STR."./src/main/resources/org/ict/client/\{type}/\{fileName}");
+                        byte[] fileBuffer = new byte[4096];
+                        int count;
+                        int receivedSize = 0;
+                        while ((count = input.read(fileBuffer)) != -1) {
+                            receivedSize += count;
+                            fos.write(fileBuffer, 0, count);
+                            if (receivedSize == fileSize) {
+                                break;
+                            }
+                        }
+                        fos.close();
+                    }
                     messageCallback.onMessageReceived(message);
                 }
             } catch (Exception e) {

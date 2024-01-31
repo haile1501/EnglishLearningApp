@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.ict.client.controllers.teacherpages.ExTypeSelection">
+   <children>
+      <Text layoutX="50.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Exercises Evaluation">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Text>
+      <Button fx:id="signOut" layoutX="522.0" layoutY="14.0" mnemonicParsing="false" text="Sign out" />
+      <Button fx:id="rewrite" layoutX="87.0" layoutY="84.0" mnemonicParsing="false" text="Sentence rewriting" />
+      <Button fx:id="essay" layoutX="87.0" layoutY="125.0" mnemonicParsing="false" text="Paragraphs writing" />
+      <Button fx:id="speak" layoutX="87.0" layoutY="166.0" mnemonicParsing="false" text="Speaking" />
+   </children>
+</AnchorPane>

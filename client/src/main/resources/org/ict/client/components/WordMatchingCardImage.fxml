@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="111.0" prefWidth="190.0" xmlns="http://javafx.com/javafx/21" style="-fx-border-width: 1; -fx-border-color: black;" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.ict.client.controllers.components.WordMatchingCardImage">
+   <children>
+      <ImageView fx:id="image" fitHeight="111.0" fitWidth="190.0" pickOnBounds="true" preserveRatio="true" />
+   </children>
+</AnchorPane>

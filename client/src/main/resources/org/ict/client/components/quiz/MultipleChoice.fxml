@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
+
+
+<AnchorPane prefHeight="105.0" prefWidth="345.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.ict.client.controllers.components.quiz.MultipleChoice">
+   <children>
+      <Text fx:id="question" layoutX="3.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" text="How are you ?" />
+      <RadioButton fx:id="a" layoutX="13.0" layoutY="38.0" mnemonicParsing="false" text="I'm 12" />
+      <RadioButton fx:id="b" layoutX="173.0" layoutY="38.0" mnemonicParsing="false" text="I'm OK" />
+      <RadioButton fx:id="c" layoutX="13.0" layoutY="72.0" mnemonicParsing="false" text="I'm Bob" />
+      <RadioButton fx:id="d" layoutX="173.0" layoutY="72.0" mnemonicParsing="false" text="No, thanks" />
+   </children>
+</AnchorPane>

@@ -1,14 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="org.ict.client.controllers.studentpages.LessonList"
-            prefHeight="400.0" prefWidth="600.0">
-
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.ict.client.controllers.studentpages.LessonList">
+   <children>
+      <TextField fx:id="topic" layoutX="152.0" layoutY="46.0" />
+      <Text layoutX="108.0" layoutY="63.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Topic" />
+      <Text layoutX="328.0" layoutY="63.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Level" />
+      <ChoiceBox fx:id="level" layoutX="368.0" layoutY="46.0" prefHeight="26.0" prefWidth="106.0" />
+      <Button fx:id="filter" layoutX="497.0" layoutY="46.0" mnemonicParsing="false" text="Filter" />
+      <Text fx:id="currentLevel" layoutX="120.0" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Intermediate">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Text>
+      <ScrollPane layoutX="131.0" layoutY="113.0" prefHeight="260.0" prefWidth="350.0">
+         <content>
+            <VBox fx:id="lessonList" prefHeight="260.0" prefWidth="350.0" />
+         </content>
+      </ScrollPane>
+      <Button fx:id="signOut" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" text="Sign out" />
+      <Button fx:id="game" layoutX="14.0" layoutY="304.0" mnemonicParsing="false" text="Games" />
+      <Button fx:id="chat" layoutX="14.0" layoutY="347.0" mnemonicParsing="false" text="Chat" />
+   </children>
 </AnchorPane>

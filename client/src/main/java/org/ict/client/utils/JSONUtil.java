@@ -16,7 +16,7 @@ public class JSONUtil {
         return objectMapper.writeValueAsString(object);
     }
 
-    public static <T> T parseList(String message, Class<T> clazz) throws JsonProcessingException {
+    public static <T> List<T> parseList(String message, Class<T> clazz) throws JsonProcessingException {
         TypeFactory typeFactory = objectMapper.getTypeFactory();
         return objectMapper.readValue(message, typeFactory.constructCollectionType(List.class, clazz));
     }

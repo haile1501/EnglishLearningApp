@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="105.0" prefWidth="345.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.ict.client.controllers.components.SentenceRewrite">
+   <children>
+      <Text fx:id="question" layoutX="3.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" text="How ___ are you ? I'm 12" />
+      <TextField fx:id="answer" layoutX="2.0" layoutY="40.0" prefHeight="26.0" prefWidth="337.0" />
+   </children>
+</AnchorPane>

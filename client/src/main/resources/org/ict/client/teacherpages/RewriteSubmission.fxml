@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="680.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.ict.client.controllers.teacherpages.RewriteSubmission">
+   <children>
+      <Text fx:id="title" layoutX="81.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hai's submission">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Text>
+      <Button fx:id="back" layoutX="14.0" layoutY="18.0" mnemonicParsing="false" text="Back" />
+      <GridPane fx:id="questionContainer" alignment="TOP_CENTER" hgap="10.0" layoutX="25.0" layoutY="58.0" prefWidth="700.0" vgap="10.0">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints maxHeight="30.4" minHeight="105.0" prefHeight="500.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="38.4" minHeight="105.0" prefHeight="500.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="37.60001220703124" minHeight="105.0" prefHeight="500.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="37.60001220703124" minHeight="105.0" prefHeight="500.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+      </GridPane>
+      <Button fx:id="submit" layoutX="661.0" layoutY="629.0" mnemonicParsing="false" text="Save" />
+      <Text layoutX="81.0" layoutY="549.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mark" />
+      <TextField fx:id="mark" layoutX="124.0" layoutY="532.0" />
+      <Text layoutX="81.0" layoutY="582.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Feedback" />
+      <TextArea fx:id="comment" layoutX="146.0" layoutY="569.0" prefHeight="86.0" prefWidth="364.0" />
+   </children>
+</AnchorPane>

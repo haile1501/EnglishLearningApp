@@ -1,5 +1,7 @@
 package org.example.daos;
 
+import org.example.models.dtos.ExerciseDto;
+
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;

@@ -6,9 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Exercise extends BaseModel{
-    public enum EX_TYPE{REWRITE, PARAGRAPH, SPEAKING};
-//    Integer exerciseId;
-    String content;
-    EX_TYPE type;
-    Integer lessonId;
+    private String type;
+    private String content;
+    private String studentWork;
 }

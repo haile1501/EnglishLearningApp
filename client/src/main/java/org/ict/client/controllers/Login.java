@@ -50,7 +50,7 @@ public class Login {
             LoginDto loginDto = new LoginDto(loginId.getText(), password.getText());
             stage = (Stage)((Node)mouseEvent.getSource()).getScene().getWindow();
             try {
-                socketManager.sendMessage("LOGIN " + JSONUtil.stringify(loginDto), this::handleLoginResponse);
+                socketManager.sendMessage(STR."LOGIN-\{JSONUtil.stringify(loginDto)}", this::handleLoginResponse);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -80,7 +80,7 @@ public class Login {
 
     private void handleLoginResponse(String message) throws JsonProcessingException {
         Platform.runLater(() -> {
-            String[] splitMessage = message.split(" ");
+            String[] splitMessage = message.split("-");
             int responseCode = Integer.parseInt(splitMessage[0]);
 
             if (responseCode == ResponseCode.LOGIN_ERROR) {
@@ -96,15 +96,7 @@ public class Login {
                 try {
                     User user = JSONUtil.parse(splitMessage[1], User.class);
                     UserContext.getInstance().initializeContext(user);
-                    FXMLLoader loader = new FXMLLoader();
-                    String pathToFxml = "./src/main/resources/org/ict/client/studentpages/LessonList.fxml";
-                    URL url = null;
-                    try {
-                        url = new File(pathToFxml).toURI().toURL();
-                    } catch (MalformedURLException e) {
-                        throw new RuntimeException(e);
-                    }
-                    loader.setLocation(url);
+                    FXMLLoader loader = getFxmlLoader(user);
                     try {
                         root = loader.load();
                     } catch (IOException e) {
@@ -118,5 +110,21 @@ public class Login {
                 }
             }
         });
+    }
+
+    private static FXMLLoader getFxmlLoader(User user) {
+        FXMLLoader loader = new FXMLLoader();
+        String pathToFxml = "./src/main/resources/org/ict/client/studentpages/LessonList.fxml";
+        if (user.getRole().equals("teacher")) {
+            pathToFxml = "./src/main/resources/org/ict/client/teacherpages/ExTypeSelection.fxml";
+        }
+        URL url = null;
+        try {
+            url = new File(pathToFxml).toURI().toURL();
+        } catch (MalformedURLException e) {
+            throw new RuntimeException(e);
+        }
+        loader.setLocation(url);
+        return loader;
     }
 }
