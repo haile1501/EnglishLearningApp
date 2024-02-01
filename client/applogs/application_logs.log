@@ -145,3 +145,4 @@
 2024-02-01 01:23:15 [Thread-2] ERROR org.ict.client.SocketManager - java.net.SocketException: Connection reset
 2024-02-01 01:42:13 [Thread-2] ERROR org.ict.client.SocketManager - java.io.FileNotFoundException: .\src\main\resources\org\ict\client\videos\video.mp4 (The system cannot find the path specified)
 2024-02-01 03:52:31 [Thread-2] ERROR org.ict.client.SocketManager - java.net.SocketException: Connection reset
+2024-02-01 08:18:14 [Thread-2] ERROR org.ict.client.SocketManager - java.net.SocketException: Connection reset

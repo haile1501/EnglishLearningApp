@@ -30,16 +30,28 @@ public class VoiceCall {
             address = "192.168.1.33";
         }
         DatagramSocket datagramSocket = SocketManager.getInstance().getDatagramSocket();
-        Thread sendThread = new Thread(new SendVoiceThread(address, datagramSocket));
-        Thread receiveThread = new Thread(new ReceiveVoiceThread(datagramSocket));
+        SendVoiceThread sendVoiceThread = new SendVoiceThread(address, datagramSocket);
+        ReceiveVoiceThread receiveVoiceThread = new ReceiveVoiceThread(datagramSocket);
+        Thread sendThread = new Thread(sendVoiceThread);
+        Thread receiveThread = new Thread(receiveVoiceThread);
         sendThread.start();
         receiveThread.start();
+        endCall.setOnMouseClicked(mouseEvent -> {
+            sendVoiceThread.stop();
+            receiveVoiceThread.stop();
+        });
     }
 
     static class SendVoiceThread implements Runnable {
         private final String calleeAddress;
 
         private final DatagramSocket datagramSocket;
+
+        private boolean isRunning = true;
+
+        public void stop() {
+            isRunning = false;
+        }
 
         public SendVoiceThread(String calleeAddress, DatagramSocket datagramSocket) {
             this.calleeAddress = calleeAddress;
@@ -58,7 +70,7 @@ public class VoiceCall {
                 byte[] buffer = new byte[1024];
                 DatagramPacket packet;
 
-                while (true) {
+                while (isRunning) {
                     int count = line.read(buffer, 0, buffer.length);
                     packet = new DatagramPacket(buffer, count, InetAddress.getByName(this.calleeAddress), 1234);
                     datagramSocket.send(packet);
@@ -71,6 +83,12 @@ public class VoiceCall {
 
     static class ReceiveVoiceThread implements Runnable {
         private final DatagramSocket datagramSocket;
+
+        private boolean isRunning = true;
+
+        public void stop() {
+            isRunning = false;
+        }
         public ReceiveVoiceThread(DatagramSocket datagramSocket) {
             this.datagramSocket = datagramSocket;
         }
@@ -87,7 +105,7 @@ public class VoiceCall {
                 byte[] buffer = new byte[1024];
                 DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
 
-                while (true) {
+                while (isRunning) {
                     datagramSocket.receive(packet);
                     line.write(packet.getData(), 0, packet.getLength());
                 }
