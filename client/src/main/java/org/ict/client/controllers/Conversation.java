@@ -135,6 +135,12 @@ public class Conversation {
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
+            VoiceCall voiceCall = loader.getController();
+            try {
+                voiceCall.setData(user);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
             scene = new Scene(root);
             stage = (Stage)((Node)mouseEvent.getSource()).getScene().getWindow();
             stage.setScene(scene);
