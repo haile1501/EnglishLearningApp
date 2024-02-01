@@ -13,10 +13,7 @@ import java.io.*;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Getter
@@ -138,7 +135,7 @@ public class ConnectionProcess implements Runnable {
                     case "GET_LESSON_VIDEO":
                         lessonId = Integer.parseInt(splitMessage[1]);
                         File myFile = new File("./src/main/resources/videos/video.mp4");
-                        output.write(STR."START_SEND_FILE-videos-\{myFile.getName()}-\{String.valueOf(myFile.length())}".getBytes());
+                        sendMessage(STR."START_SEND_FILE-videos-\{myFile.getName()}-\{String.valueOf(myFile.length())}");
                         int count;
                         byte[] buffer2 = new byte[4096];
 
@@ -150,7 +147,7 @@ public class ConnectionProcess implements Runnable {
                     case "GET_LESSON_AUDIO":
                         lessonId = Integer.parseInt(splitMessage[1]);
                         File audioFile = new File("./src/main/resources/audios/audio.mp3");
-                        output.write(STR."START_SEND_FILE-audios-\{audioFile.getName()}-\{String.valueOf(audioFile.length())}".getBytes());
+                        sendMessage(STR."START_SEND_FILE-audios-\{audioFile.getName()}-\{String.valueOf(audioFile.length())}");
                         byte[] buffer3 = new byte[4096];
 
                         int count2;
@@ -223,7 +220,7 @@ public class ConnectionProcess implements Runnable {
                         lessonId = Integer.parseInt(splitMessage[1]);
                         studentId = Integer.parseInt(splitMessage[2]);
                         audioFile = new File(STR."./src/main/resources/audios/speaking-ex/\{lessonId}\{studentId}.wav");
-                        output.write(STR."START_SEND_FILE-audios-\{audioFile.getName()}-\{String.valueOf(audioFile.length())}".getBytes());
+                        sendMessage(STR."START_SEND_FILE-audios-\{audioFile.getName()}-\{String.valueOf(audioFile.length())}");
                         buffer3 = new byte[4096];
 
                         int count3;
@@ -274,15 +271,33 @@ public class ConnectionProcess implements Runnable {
                         break;
                     case "GET_LEVEL_LIST":
                         String gameType = splitMessage[1];
-                        File folder = new File(STR."./src/main/resources/images/\{gameType}");
+                        File folder;
+                        if (gameType.equals("sentence")) {
+                            folder = new File("./src/main/resources/texts/sentence");
+                        } else {
+                            folder = new File(STR."./src/main/resources/images/\{gameType}");
+                        }
                         sendMessage(String.valueOf(Objects.requireNonNull(folder.listFiles()).length));
                         break;
-                    case "GET_WORD_GAME_IMAGE":
+                    case "GET_SENTENCE_GAME":
                         int level = Integer.parseInt(splitMessage[1]);
+                        List<String> sentences = new ArrayList<>();
+                        try (BufferedReader br = new BufferedReader(new FileReader(STR."./src/main/resources/texts/sentence/l\{level}.txt"))) {
+                            String line;
+                            while ((line = br.readLine()) != null) {
+                                sentences.add(line); // Push each line to the list
+                            }
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        sendMessage(JSONUtil.stringify(sentences));
+                        break;
+                    case "GET_WORD_GAME_IMAGE":
+                        level = Integer.parseInt(splitMessage[1]);
                         int imageIndex = Integer.parseInt(splitMessage[2]);
                         folder = new File(STR."./src/main/resources/images/word/l\{level}");
                         File[] files = folder.listFiles();
-                        output.write(STR."START_SEND_FILE-images/word/l\{level}-\{files[imageIndex].getName()}-\{String.valueOf(files[imageIndex].length())}".getBytes());
+                        sendMessage(STR."START_SEND_FILE-images/word/l\{level}-\{files[imageIndex].getName()}-\{String.valueOf(files[imageIndex].length())}");
                         byte[] buffer4 = new byte[4096];
 
                         int count4;
@@ -318,6 +333,14 @@ public class ConnectionProcess implements Runnable {
                         if (Main.onlineUsers.containsKey(toUSer.getLoginId())) {
                             Main.onlineUsers.get(toUSer.getLoginId()).sendMessage(STR."RECEIVE_MESSAGE-\{JSONUtil.stringify(this.user)}-\{content}");
                         }
+                        break;
+                    case "GET_ONLINE_USER_ADDRESS":
+                        User onlineUser = JSONUtil.parse(splitMessage[1], User.class);
+                        String address = "0";
+                        if (Main.onlineUsers.containsKey(onlineUser.getLoginId())) {
+                            address = Main.onlineUsers.get(onlineUser.getLoginId()).socket.getInetAddress().getHostAddress();
+                        }
+                        sendMessage(address);
                         break;
                 }
             }
