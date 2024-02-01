@@ -7,6 +7,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.*;
+import java.net.DatagramSocket;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
 
@@ -23,6 +24,8 @@ public class SocketManager {
     private OutputStream output;
 
     private final boolean isRunning = true;
+
+    private DatagramSocket datagramSocket;
 
     public interface MessageCallback {
         void onMessageReceived(String message) throws IOException, ClassNotFoundException;
@@ -51,6 +54,7 @@ public class SocketManager {
     public void initializeConnection(String serverAddress, int serverPort) {
         try {
             this.socket = new Socket(serverAddress, serverPort);
+            this.datagramSocket = new DatagramSocket(1234);
             this.input = socket.getInputStream();
             this.output = socket.getOutputStream();
             startMessageReceiverThread();
