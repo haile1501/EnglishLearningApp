@@ -16,5 +16,6 @@
       <Button fx:id="rewrite" layoutX="87.0" layoutY="84.0" mnemonicParsing="false" text="Sentence rewriting" />
       <Button fx:id="essay" layoutX="87.0" layoutY="125.0" mnemonicParsing="false" text="Paragraphs writing" />
       <Button fx:id="speak" layoutX="87.0" layoutY="166.0" mnemonicParsing="false" text="Speaking" />
+      <Button fx:id="chat" layoutX="24.0" layoutY="344.0" mnemonicParsing="false" text="Chat" />
    </children>
 </AnchorPane>

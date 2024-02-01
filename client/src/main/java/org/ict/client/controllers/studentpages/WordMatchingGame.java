@@ -137,7 +137,7 @@ public class WordMatchingGame {
                                                 long seconds = (elapsedTime / 1000) % 60;
                                                 Dialog<String> dialog = new Dialog<>();
                                                 dialog.setTitle("Complete!");
-                                                dialog.getDialogPane().setContent(new Label(STR."Time: \{minutes} : \{seconds}"));
+                                                dialog.getDialogPane().setContent(new Label(STR."Time:    \{minutes} min \{seconds} sec"));
                                                 dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
                                                 // Wait for the user to close the dialog
                                                 dialog.showAndWait();

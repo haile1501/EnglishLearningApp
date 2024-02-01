@@ -51,6 +51,9 @@ public class Conversation {
     @FXML
     private Circle status;
 
+    @FXML
+    private Button call;
+
     private User user;
 
     private Stage stage;
@@ -115,6 +118,27 @@ public class Conversation {
                 messageList.getChildren().add(pane);
                 messageInput.clear();
             }
+        });
+
+        call.setOnMouseClicked(mouseEvent -> {
+            FXMLLoader loader = new FXMLLoader();
+            String pathToFxml = "./src/main/resources/org/ict/client/VoiceCall.fxml";
+            URL url = null;
+            try {
+                url = new File(pathToFxml).toURI().toURL();
+            } catch (MalformedURLException e) {
+                throw new RuntimeException(e);
+            }
+            loader.setLocation(url);
+            try {
+                root = loader.load();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            scene = new Scene(root);
+            stage = (Stage)((Node)mouseEvent.getSource()).getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
         });
     }
 

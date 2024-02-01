@@ -30,6 +30,8 @@ public class GameLevelList {
     private Scene scene;
     private Parent root;
 
+    private String gameType;
+
     @FXML
     protected void initialize() {
         back.setOnMouseClicked(mouseEvent -> {
@@ -55,6 +57,7 @@ public class GameLevelList {
     }
 
     public void setData(String gameType) throws IOException {
+        this.gameType = gameType;
         SocketManager socketManager = SocketManager.getInstance();
         socketManager.sendMessage(STR."GET_LEVEL_LIST-\{gameType}", this::handleReceiveLevelList);
     }
@@ -79,7 +82,7 @@ public class GameLevelList {
                     throw new RuntimeException(e);
                 }
                 LevelItem levelItem = loader.getController();
-                levelItem.setData(i);
+                levelItem.setData(i, gameType);
                 levelList.getChildren().add(pane);
             }
         });

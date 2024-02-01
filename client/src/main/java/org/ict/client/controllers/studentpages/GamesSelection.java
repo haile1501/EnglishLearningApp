@@ -80,5 +80,32 @@ public class GamesSelection {
             stage.setScene(scene);
             stage.show();
         });
+
+        sentence.setOnMouseClicked(mouseEvent -> {
+            FXMLLoader loader = new FXMLLoader();
+            String pathToFxml = "./src/main/resources/org/ict/client/studentpages/GameLevelList.fxml";
+            URL url = null;
+            try {
+                url = new File(pathToFxml).toURI().toURL();
+            } catch (MalformedURLException e) {
+                throw new RuntimeException(e);
+            }
+            loader.setLocation(url);
+            try {
+                root = loader.load();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            GameLevelList gameLevelList = loader.getController();
+            try {
+                gameLevelList.setData("sentence");
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            scene = new Scene(root);
+            stage = (Stage)((Node)mouseEvent.getSource()).getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        });
     }
 }

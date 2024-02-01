@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import org.ict.client.controllers.studentpages.SentenceOrderingGame;
 import org.ict.client.controllers.studentpages.WordMatchingGame;
 
 import java.io.File;
@@ -32,33 +33,64 @@ public class LevelItem {
 
     }
 
-    public void setData(int level) {
+    public void setData(int level, String gameType) {
         this.level.setText(STR."Level \{level}");
         play.setOnMouseClicked(mouseEvent -> {
-            FXMLLoader loader2 = new FXMLLoader();
-            String pathToFxml2 = "./src/main/resources/org/ict/client/studentpages/WordMatchingGame.fxml";
-            URL logIn = null;
-            try {
-                logIn = new File(pathToFxml2).toURI().toURL();
-            } catch (MalformedURLException e) {
-                throw new RuntimeException(e);
+            switch (gameType) {
+                case "word":
+                    FXMLLoader loader2 = new FXMLLoader();
+                    String pathToFxml2 = "./src/main/resources/org/ict/client/studentpages/WordMatchingGame.fxml";
+                    URL logIn = null;
+                    try {
+                        logIn = new File(pathToFxml2).toURI().toURL();
+                    } catch (MalformedURLException e) {
+                        throw new RuntimeException(e);
+                    }
+                    loader2.setLocation(logIn);
+                    try {
+                        root = loader2.load();
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                    WordMatchingGame wordMatchingGame = loader2.getController();
+                    try {
+                        wordMatchingGame.setData(level);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                    scene = new Scene(root);
+                    stage = (Stage)((Node)mouseEvent.getSource()).getScene().getWindow();
+                    stage.setScene(scene);
+                    stage.show();
+                    break;
+                case "sentence":
+                    loader2 = new FXMLLoader();
+                    pathToFxml2 = "./src/main/resources/org/ict/client/studentpages/SentenceOrderingGame.fxml";
+                    logIn = null;
+                    try {
+                        logIn = new File(pathToFxml2).toURI().toURL();
+                    } catch (MalformedURLException e) {
+                        throw new RuntimeException(e);
+                    }
+                    loader2.setLocation(logIn);
+                    try {
+                        root = loader2.load();
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                    SentenceOrderingGame sentenceOrderingGame = loader2.getController();
+                    try {
+                        sentenceOrderingGame.setData(level);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                    scene = new Scene(root);
+                    stage = (Stage)((Node)mouseEvent.getSource()).getScene().getWindow();
+                    stage.setScene(scene);
+                    stage.show();
+                    break;
             }
-            loader2.setLocation(logIn);
-            try {
-                root = loader2.load();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-            WordMatchingGame wordMatchingGame = loader2.getController();
-            try {
-                wordMatchingGame.setData(level);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-            scene = new Scene(root);
-            stage = (Stage)((Node)mouseEvent.getSource()).getScene().getWindow();
-            stage.setScene(scene);
-            stage.show();
+
         });
     }
 }

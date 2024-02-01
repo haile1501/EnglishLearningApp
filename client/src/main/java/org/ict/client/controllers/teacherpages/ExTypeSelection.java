@@ -27,12 +27,35 @@ public class ExTypeSelection {
     @FXML
     private Button rewrite;
 
+    @FXML
+    private Button chat;
+
     private Stage stage;
     private Scene scene;
     private Parent root;
 
     @FXML
     protected void initialize() {
+        chat.setOnMouseClicked(mouseEvent -> {
+            FXMLLoader loader2 = new FXMLLoader();
+            String pathToFxml2 = "./src/main/resources/org/ict/client/Chat.fxml";
+            URL logIn = null;
+            try {
+                logIn = new File(pathToFxml2).toURI().toURL();
+            } catch (MalformedURLException e) {
+                throw new RuntimeException(e);
+            }
+            loader2.setLocation(logIn);
+            try {
+                root = loader2.load();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            scene = new Scene(root);
+            stage = (Stage)((Node)mouseEvent.getSource()).getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        });
         signOut.setOnMouseClicked(mouseEvent -> {
             FXMLLoader loader2 = new FXMLLoader();
             String pathToFxml2 = "./src/main/resources/org/ict/client/Login.fxml";
