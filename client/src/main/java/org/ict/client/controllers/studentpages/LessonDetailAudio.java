@@ -61,7 +61,9 @@ public class LessonDetailAudio {
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-            mediaPlayer.stop();
+            if (mediaPlayer != null) {
+                mediaPlayer.stop();
+            }
             scene = new Scene(root);
             stage = (Stage)((Node)mouseEvent.getSource()).getScene().getWindow();
             stage.setScene(scene);
@@ -75,7 +77,9 @@ public class LessonDetailAudio {
                 loader2.setLocation(lessonItemUrl2);
                 root = loader2.load();
                 LessonDetail lessonDetail = loader2.getController();
-                mediaPlayer.stop();
+                if (mediaPlayer != null) {
+                    mediaPlayer.stop();
+                }
                 lessonDetail.setData(lessonListItem);
                 scene = new Scene(root);
                 stage = (Stage)((Node)mouseEvent.getSource()).getScene().getWindow();
@@ -107,7 +111,9 @@ public class LessonDetailAudio {
             }
             LessonDetailVocab lessonDetailVocab = loader.getController();
             lessonDetailVocab.setData(lessonListItem);
-            mediaPlayer.stop();
+            if (mediaPlayer != null) {
+                mediaPlayer.stop();
+            }
             scene = new Scene(root);
             stage = (Stage)((Node)mouseEvent.getSource()).getScene().getWindow();
             stage.setScene(scene);
