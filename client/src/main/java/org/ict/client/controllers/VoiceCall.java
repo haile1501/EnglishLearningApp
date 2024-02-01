@@ -36,7 +36,7 @@ public class VoiceCall {
 
     private void handleReceiveCalleeAddress(String address) throws SocketException {
         if (address.equals("127.0.0.1")) {
-            address = "192.168.1.33";
+            address = System.getenv("host");
         }
         DatagramSocket datagramSocket = SocketManager.getInstance().getDatagramSocket();
         SendVoiceThread sendVoiceThread = new SendVoiceThread(address, datagramSocket);
